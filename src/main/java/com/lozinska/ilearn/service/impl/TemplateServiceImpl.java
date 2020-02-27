@@ -19,17 +19,11 @@ public class TemplateServiceImpl implements TemplateService {
     public Set<Word> generateTemplate(Integer startNumber, Integer capacity) {
         List<Word> wordsList = wordRepository.findAll();
         Set<Word> template = new HashSet<>();
-        Integer start = startNumber;
-        Integer end = startNumber + capacity;
-
-        for (int i = start; i <= end; i++) {
-            for (Word word : wordsList) {
-                if (word.getId() == i) {
-                    template.add(word);
-                    break;
-                }
-            }
-        }
+        Integer id = startNumber;
+        do {
+            template.add(wordsList.get(id));
+            id++;
+        }while (template.size() < capacity);
         return template;
     }
 
